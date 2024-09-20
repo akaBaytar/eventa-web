@@ -11,7 +11,7 @@ import { Button } from '../ui/button';
 
 const Header = () => {
   return (
-    <header className='w-full border-b bg-primary-50'>
+    <header className='w-full bg-primary-50 bg-dotted-pattern bg-contain'>
       <div className='wrapper flex items-center justify-between'>
         <Link
           href='/'
