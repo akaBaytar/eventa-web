@@ -29,7 +29,7 @@ const MobileNav = () => {
             />
             <span>Eventa</span>
           </div>
-          <Separator className='border border-primary/10' />
+          <Separator className='border-b' />
           <NavItems />
         </SheetContent>
       </Sheet>
