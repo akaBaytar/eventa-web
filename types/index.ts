@@ -8,13 +8,13 @@ export type User = {
   photo: string;
   createdAt: Date;
   updatedAt: Date;
-  Event: Event[];
+  Event?: Event[];
 };
 
 export type Category = {
   id: string;
   name: string;
-  Event: Event[];
+  Event?: Event[];
 };
 
 export type Event = {
