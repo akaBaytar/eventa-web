@@ -44,3 +44,10 @@ export type CreateUser = {
   email: string;
   photo: string;
 };
+
+export type UpdateUser = {
+  firstName: string;
+  lastName: string;
+  username: string;
+  photo: string;
+};
