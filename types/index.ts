@@ -35,3 +35,12 @@ export type Event = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type CreateUser = {
+  clerkId: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  email: string;
+  photo: string;
+};
