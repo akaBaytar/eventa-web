@@ -1,5 +1,7 @@
 'use client';
 
+import { useState } from 'react';
+
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -7,9 +9,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { eventDefaultValues } from '@/constants';
 import { eventFormSchema } from '@/lib/validator';
 
+import FileUploader from './FileUploader';
 import FormDropdown from '../shared/Dropdown';
+
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
 
 import {
   Form,
@@ -25,6 +30,8 @@ type PropTypes = {
 };
 
 const EventForm = ({ userId, type }: PropTypes) => {
+  const [files, setFiles] = useState<File[]>([]);
+
   const form = useForm<z.infer<typeof eventFormSchema>>({
     resolver: zodResolver(eventFormSchema),
     defaultValues: eventDefaultValues,
@@ -70,7 +77,43 @@ const EventForm = ({ userId, type }: PropTypes) => {
             )}
           />
         </div>
-        <Button type='submit'>Submit</Button>
+        <div className='flex flex-col md:flex-row gap-6'>
+          <FormField
+            control={form.control}
+            name='description'
+            render={({ field }) => (
+              <FormItem className='w-full'>
+                <FormControl className='h-60'>
+                  <Textarea
+                    placeholder='Description'
+                    {...field}
+                    className='textarea'
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='imageUrl'
+            render={({ field }) => (
+              <FormItem className='w-full'>
+                <FormControl className='h-60'>
+                  <FileUploader
+                    onFieldChange={field.onChange}
+                    imageUrl={field.value}
+                    setFiles={setFiles}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <Button type='submit' size='lg'>
+          Submit
+        </Button>
       </form>
     </Form>
   );
