@@ -1,4 +1,4 @@
-import { startTransition, useState } from 'react';
+import { startTransition, useState, useEffect } from 'react';
 
 import { Input } from '../ui/input';
 
@@ -22,18 +22,34 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 
+import { createCategory, getAllCategories } from '@/actions/category.action';
+
 import { Category } from '@/types';
 
 type PropTypes = {
   value?: string;
-  onChangeHandler?: () => void;
+  onChangeHandler?: (value: string) => void;
 };
 
 const FormDropdown = ({ value, onChangeHandler }: PropTypes) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [newCategory, setNewCategory] = useState('');
 
-  const handleAddCategory = () => {};
+  const handleAddCategory = () => {
+    createCategory({ category: newCategory.trim() }).then((category) => {
+      if (category) setCategories((prev) => [...prev, category]);
+    });
+  };
+
+  useEffect(() => {
+    const getCategories = async () => {
+      const categoryList = await getAllCategories();
+
+      if (categoryList) setCategories(categoryList as Category[]);
+    };
+
+    getCategories();
+  }, []);
 
   return (
     <Select onValueChange={onChangeHandler} defaultValue={value}>
