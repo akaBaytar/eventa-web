@@ -6,8 +6,9 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { FaLocationDot } from 'react-icons/fa6';
-import { FaRegCalendarAlt } from 'react-icons/fa';
+import { LuLoader2 } from 'react-icons/lu';
+import { FaLocationDot, FaLink } from 'react-icons/fa6';
+import { FaRegCalendarAlt, FaMoneyBill } from 'react-icons/fa';
 
 import { eventDefaultValues } from '@/constants';
 import { eventFormSchema } from '@/lib/validator';
@@ -17,6 +18,7 @@ import FormDropdown from '../shared/Dropdown';
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Textarea } from '@/components/ui/textarea';
 
 import {
@@ -189,8 +191,85 @@ const EventForm = ({ userId, type }: PropTypes) => {
             )}
           />
         </div>
-        <Button type='submit' size='lg' className='py-[26px]'>
-          Create Event
+        <div className='flex flex-col md:flex-row gap-6'>
+          <FormField
+            control={form.control}
+            name='price'
+            render={({ field }) => (
+              <FormItem className='w-full'>
+                <FormControl>
+                  <div className='flex-center h-[54px] w-full px-4 py-2 overflow-hidden rounded-lg bg-grey-50'>
+                    <FaMoneyBill className='w-8 h-6 text-gray-500' />
+                    <Input
+                      type='number'
+                      placeholder='Price'
+                      min={0}
+                      {...field}
+                      className='p-regular-16 border-0 outline-offset-0 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0 bg-grey-50 ms-2'
+                    />
+                    <FormField
+                      control={form.control}
+                      name='isFree'
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <div className='flex items-center'>
+                              <label
+                                htmlFor='isFree'
+                                className='whitespace-nowrap pe-2 ms-2 text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-60'>
+                                Free Ticket
+                              </label>
+                              <Checkbox
+                                id='isFree'
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                                className='me-2 h-5 w-5 border-2 border-primary'
+                              />
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='url'
+            render={({ field }) => (
+              <FormItem className='w-full'>
+                <FormControl>
+                  <div className='flex-center h-[54px] w-full px-4 py-2 overflow-hidden rounded-lg bg-grey-50'>
+                    <FaLink className='w-6 h-6 text-gray-500' />
+                    <Input
+                      placeholder='URL'
+                      {...field}
+                      className='input-field'
+                    />
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <Button
+          type='submit'
+          size='lg'
+          className='py-[26px]'
+          disabled={form.formState.isSubmitting}>
+          {form.formState.isSubmitting ? (
+            <div className='flex items-center gap-2 animate-pulse'>
+              <LuLoader2 className='w-6 h-6 animate-spin' />{' '}
+              <span>Submitting...</span>
+            </div>
+          ) : (
+            `${type} Event`
+          )}
         </Button>
       </form>
     </Form>
