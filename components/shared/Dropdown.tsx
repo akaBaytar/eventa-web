@@ -62,7 +62,7 @@ const FormDropdown = ({ value, onChangeHandler }: PropTypes) => {
             <SelectItem
               key={id}
               value={name}
-              className='select-item p-regular-14'>
+              className='select-item p-regular-14 ps-4'>
               {name}
             </SelectItem>
           ))}
