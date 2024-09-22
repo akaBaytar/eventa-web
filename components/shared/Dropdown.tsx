@@ -68,7 +68,7 @@ const FormDropdown = ({ value, onChangeHandler }: PropTypes) => {
           ))}
         <AlertDialog>
           <AlertDialogTrigger className='flex w-full p-medium-14 py-3 ps-4 text-primary hover:bg-primary-50'>
-            Create new category
+            Add new category
           </AlertDialogTrigger>
           <AlertDialogContent className='bg-white'>
             <AlertDialogHeader>
