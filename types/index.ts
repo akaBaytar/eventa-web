@@ -51,3 +51,49 @@ export type UpdateUser = {
   username: string;
   photo: string;
 };
+
+export type CreateEvent = {
+  userId: string;
+  event: {
+    title: string;
+    description: string;
+    location: string;
+    imageUrl: string;
+    startDateTime: Date;
+    endDateTime: Date;
+    categoryId: string;
+    price: string;
+    isFree: boolean;
+    url: string;
+  };
+};
+
+export type UpdateEvent = {
+  userId: string;
+  event: {
+    _id: string;
+    title: string;
+    imageUrl: string;
+    description: string;
+    location: string;
+    startDateTime: Date;
+    endDateTime: Date;
+    categoryId: string;
+    price: string;
+    isFree: boolean;
+    url: string;
+  };
+  path: string;
+};
+
+export type DeleteEvent = {
+  eventId: string;
+  path: string;
+};
+
+export type GetAllEvents = {
+  query: string;
+  category: string;
+  limit: number;
+  page: number;
+};

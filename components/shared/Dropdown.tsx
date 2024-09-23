@@ -61,7 +61,7 @@ const FormDropdown = ({ value, onChangeHandler }: PropTypes) => {
           categories.map(({ id, name }) => (
             <SelectItem
               key={id}
-              value={name}
+              value={id}
               className='select-item p-regular-14 ps-4'>
               {name}
             </SelectItem>

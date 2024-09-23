@@ -3,7 +3,9 @@ import { auth } from '@clerk/nextjs/server';
 import EventForm from '@/components/layout/EventForm';
 
 const EventCreatePage = () => {
-  const { userId } = auth();
+  const { sessionClaims } = auth();
+
+  const userId = sessionClaims?.userId as string;
 
   return (
     <>
@@ -13,7 +15,7 @@ const EventCreatePage = () => {
         </h3>
       </section>
       <div className='wrapper my-8'>
-        <EventForm userId={userId as string} type='Create' />
+        <EventForm userId={userId} type='Create' />
       </div>
     </>
   );
