@@ -19,6 +19,8 @@ export const createEvent = async ({ event, userId }: CreateEvent) => {
       data: { ...event, userId, categoryId: event.categoryId },
     });
 
+    revalidatePath('/');
+
     return newEvent;
   } catch (error) {
     handleError(error);
