@@ -54,7 +54,20 @@ const EventForm = ({ userId, type, event, eventId }: PropTypes) => {
 
   const [files, setFiles] = useState<File[]>([]);
 
-  const initialValues = event && type === 'Update' ? event : eventDefaultValues;
+  const initialValues =
+    event && type === 'Update'
+      ? {
+          ...event,
+          description: event.description ?? undefined,
+          location: event.location ?? undefined,
+          imageUrl: event.imageUrl ?? undefined,
+          categoryId: event.categoryId ?? undefined,
+          price: event.price ?? undefined,
+          url: event.url ?? undefined,
+          startDateTime: event.startDateTime ?? undefined,
+          endDateTime: event.endDateTime ?? undefined,
+        }
+      : eventDefaultValues;
 
   const form = useForm<z.infer<typeof eventFormSchema>>({
     resolver: zodResolver(eventFormSchema),

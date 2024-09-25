@@ -22,12 +22,12 @@ export type Event = {
   userId: string;
   categoryId: string;
   title: string;
-  description?: string;
-  location?: string;
+  description: string | null;
+  location: string | null;
   imageUrl: string;
-  price?: string;
-  url?: string;
-  category: Category;
+  price: string | null;
+  url: string | null;
+  category: Category  | null;
   isFree: boolean;
   startDateTime: Date;
   endDateTime: Date;

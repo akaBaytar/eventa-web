@@ -16,7 +16,7 @@ const HomePage = async () => {
     <>
       <Hero />
       <SearchContainer />
-      <section className='wrapper flex flex-col gap-6 md:gap-12 my-8'>
+      <section className='wrapper flex flex-col gap-6 md:gap-12 mb-8'>
         <EventCollection
           data={events?.data ?? []}
           title='No events found.'
