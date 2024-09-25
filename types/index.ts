@@ -22,18 +22,24 @@ export type Event = {
   userId: string;
   categoryId: string;
   title: string;
-  description?: string;
-  location?: string;
+  description?: string | null;
+  location?: string | null;
   imageUrl: string;
-  price?: string;
-  url?: string;
+  price?: string | null;
+  url?: string | null;
   category: Category;
-  organizer: User;
   isFree: boolean;
   startDateTime: Date;
   endDateTime: Date;
   createdAt: Date;
   updatedAt: Date;
+  organizer: {
+    id: string;
+    username: string;
+    firstName: string;
+    lastName: string;
+    photo: string;
+  };
 };
 
 export type CreateUser = {
@@ -96,4 +102,15 @@ export type GetAllEvents = {
   category: string;
   limit: number;
   page: number;
+};
+
+export type Collection = {
+  data: Event[];
+  title: string;
+  subtitle: string;
+  limit: number;
+  totalPages?: number;
+  page: number | string;
+  urlParamName?: string;
+  type?: 'EVENTS_ORGANIZED' | 'ALL_EVENTS' | 'MY_TICKETS';
 };
