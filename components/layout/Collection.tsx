@@ -1,3 +1,5 @@
+import Card from '../shared/Card';
+
 import { Collection } from '@/types';
 
 const EventCollection = ({
@@ -15,15 +17,19 @@ const EventCollection = ({
       {data.length > 0 ? (
         <div className='flex flex-col items-center gap-10'>
           <ul className='grid gap-4 xl:gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full'>
-            {data.map(event=>{
-              const hasOrderLink = type === 'EVENTS_ORGANIZED'
-              const hidePrice = type === 'MY_TICKETS'
+            {data.map((event) => {
+              const hasOrderLink = type === 'EVENTS_ORGANIZED';
+              const hidePrice = type === 'MY_TICKETS';
 
               return (
-                <li key={event.id} className="flex justify-center">
-                    
+                <li key={event.id} className='flex justify-center'>
+                  <Card
+                    event={event}
+                    hasOrderLink={hasOrderLink}
+                    hidePrice={hidePrice}
+                  />
                 </li>
-              )
+              );
             })}
           </ul>
         </div>

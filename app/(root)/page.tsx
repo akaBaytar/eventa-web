@@ -16,15 +16,17 @@ const HomePage = async () => {
     <>
       <Hero />
       <SearchContainer />
-      <EventCollection
-        data={events?.data ?? []}
-        title='No events found.'
-        subtitle='Come back later.'
-        type='ALL_EVENTS'
-        limit={6}
-        page={1}
-        totalPages={2}
-      />
+      <section className='wrapper flex flex-col gap-6 md:gap-12 my-8'>
+        <EventCollection
+          data={events?.data ?? []}
+          title='No events found.'
+          subtitle='Come back later.'
+          type='ALL_EVENTS'
+          limit={6}
+          page={1}
+          totalPages={2}
+        />
+      </section>
     </>
   );
 };
