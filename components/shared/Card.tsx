@@ -6,6 +6,7 @@ import { Event } from '@/types';
 import { formatDateTime } from '@/lib/utils';
 
 import { FaRegEdit } from 'react-icons/fa';
+import DeleteConfirmation from './Delete';
 
 
 type PropTypes = {
@@ -29,10 +30,11 @@ const Card = ({ event, hasOrderLink, hidePrice }: PropTypes) => {
         style={{ backgroundImage: `url(${event.imageUrl})` }}
       />
       {isEventCreator && !hidePrice && (
-        <div className='absolute right-2 top-2 flex flex-col gap-4 p-3 shadow-sm rounded-lg bg-white transition-all'>
+        <div className='absolute right-2 top-2 flex gap-3 p-3 shadow-sm rounded-lg bg-white transition-all'>
           <Link href={`/events/${event.id}/update`}>
-            <FaRegEdit className='w-5 h-5'/>
+            <FaRegEdit className='w-4 h-4 text-gray-500'/>
           </Link>
+          <DeleteConfirmation eventId={event.id}/>
         </div>
       )}
       <Link
@@ -52,6 +54,9 @@ const Card = ({ event, hasOrderLink, hidePrice }: PropTypes) => {
           {formatDateTime(event.startDateTime).dateTime}
         </p>
         <p className='p-medium-16 md:p-medium-20 line-clamp-1'>{event.title}</p>
+        <p className="line-clamp-2 text-xs">
+          {event.description}
+        </p>
         <div className='flex-between w-full p-medium-14 md:p-medium-16 '>
           <p className='text-gray-500'>
             {event.organizer.firstName} {event.organizer.lastName}

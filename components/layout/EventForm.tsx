@@ -11,7 +11,7 @@ import { LuLoader2 } from 'react-icons/lu';
 import { FaLocationDot, FaLink } from 'react-icons/fa6';
 import { FaRegCalendarAlt, FaMoneyBill } from 'react-icons/fa';
 
-import { createEvent } from '@/actions/event.action';
+import { createEvent, updateEvent } from '@/actions/event.action';
 
 import { handleError } from '@/lib/utils';
 import { eventDefaultValues } from '@/constants';
@@ -38,21 +38,27 @@ import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
+import { Event } from '@/types';
+
 type PropTypes = {
   userId: string;
+  event?: Event;
+  eventId?: string;
   type: 'Create' | 'Update';
 };
 
-const EventForm = ({ userId, type }: PropTypes) => {
+const EventForm = ({ userId, type, event, eventId }: PropTypes) => {
   const router = useRouter();
 
   const { startUpload } = useUploadThing('imageUploader');
 
   const [files, setFiles] = useState<File[]>([]);
 
+  const initialValues = event && type === 'Update' ? event : eventDefaultValues;
+
   const form = useForm<z.infer<typeof eventFormSchema>>({
     resolver: zodResolver(eventFormSchema),
-    defaultValues: eventDefaultValues,
+    defaultValues: initialValues,
   });
 
   const onSubmit = async (values: z.infer<typeof eventFormSchema>) => {
@@ -76,6 +82,31 @@ const EventForm = ({ userId, type }: PropTypes) => {
         if (newEvent) {
           form.reset();
           router.push(`/events/${newEvent.id}`);
+        }
+      } catch (error) {
+        handleError(error);
+      }
+    }
+
+    if (type === 'Update') {
+      if (!eventId) return router.back();
+
+      console.log('EVENT ID', eventId);
+
+      try {
+        const updatedEvent = await updateEvent({
+          userId,
+          event: {
+            ...values,
+            imageUrl: uploadedImageUrl,
+            id: eventId,
+          },
+          path: `/events/${eventId}`,
+        });
+
+        if (updatedEvent) {
+          form.reset();
+          router.push(`/events/${updatedEvent.id}`);
         }
       } catch (error) {
         handleError(error);

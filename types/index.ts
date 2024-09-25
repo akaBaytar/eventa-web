@@ -22,11 +22,11 @@ export type Event = {
   userId: string;
   categoryId: string;
   title: string;
-  description?: string | null;
-  location?: string | null;
+  description?: string;
+  location?: string;
   imageUrl: string;
-  price?: string | null;
-  url?: string | null;
+  price?: string;
+  url?: string;
   category: Category;
   isFree: boolean;
   startDateTime: Date;
@@ -77,7 +77,7 @@ export type CreateEvent = {
 export type UpdateEvent = {
   userId: string;
   event: {
-    _id: string;
+    id: string;
     title: string;
     imageUrl: string;
     description: string;

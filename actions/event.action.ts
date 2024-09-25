@@ -1,9 +1,11 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
+
 import prisma from '@/database';
 import { handleError } from '@/lib/utils';
 
-import { CreateEvent, GetAllEvents } from '@/types';
+import { CreateEvent, DeleteEvent, GetAllEvents, UpdateEvent } from '@/types';
 
 export const createEvent = async ({ event, userId }: CreateEvent) => {
   try {
@@ -44,6 +46,46 @@ export const getEvent = async (eventId: string) => {
     if (!event) throw new Error('Event not found.');
 
     return event;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const deleteEvent = async ({ eventId, path }: DeleteEvent) => {
+  try {
+    const event = await prisma.event.delete({ where: { id: eventId } });
+
+    if (event) revalidatePath(path);
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const updateEvent = async ({ userId, event, path }: UpdateEvent) => {
+  try {
+    const updatedEvent = await prisma.event.update({
+      where: { id: event.id, userId },
+      data: {
+        category: {
+          connect: {
+            id: event.categoryId,
+          },
+        },
+        description: event.description,
+        imageUrl: event.imageUrl,
+        title: event.title,
+        location: event.location,
+        endDateTime: event.endDateTime,
+        startDateTime: event.startDateTime,
+        price: event.price,
+        url: event.url,
+        isFree: event.isFree,
+      },
+    });
+
+    revalidatePath(path);
+
+    return updatedEvent;
   } catch (error) {
     handleError(error);
   }
