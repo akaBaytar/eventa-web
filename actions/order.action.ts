@@ -59,3 +59,40 @@ export const createOrder = async (order: CreateOrder) => {
     handleError(error);
   }
 };
+
+export const getOrdersByUser = async ({
+  userId,
+  limit = 6,
+  page,
+}: {
+  userId: string;
+  limit?: number;
+  page: number;
+}) => {
+  const orders = await prisma.order.findMany({
+    where: {
+      buyerId: userId,
+    },
+    take: limit,
+    skip: (page - 1) * limit,
+    orderBy: {
+      createdAt: 'desc',
+    },
+    include: {
+      Event: {
+        include: {
+          category: true,
+          organizer: true,
+        },
+      },
+    },
+  });
+
+  const orderCount: number = await prisma.order.count({
+    where: { buyerId: userId },
+  });
+
+  const totalPages = Math.ceil(orderCount / limit);
+
+  return { data: orders, totalPages };
+};

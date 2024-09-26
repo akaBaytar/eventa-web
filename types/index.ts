@@ -42,6 +42,18 @@ export type Event = {
   };
 };
 
+export type Order = {
+  id: string;
+  stripeId: string;
+  eventId: string;
+  buyerId: string;
+  totalAmount: string;
+  createdAt: Date;
+  updatedAt: Date;
+  Event: Event;
+  buyer?: User;
+};
+
 export type Collection = {
   data: Event[];
   title: string;

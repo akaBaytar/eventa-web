@@ -4,12 +4,20 @@ import { auth } from '@clerk/nextjs/server';
 
 import { Button } from '@/components/ui/button';
 import EventCollection from '@/components/layout/Collection';
+
 import { getRelatedEventsByOrganizer } from '@/actions/event.action';
+import { getOrdersByUser } from '@/actions/order.action';
+
+import { Order } from '@/types';
 
 const ProfilePage = async () => {
   const { sessionClaims } = auth();
 
   const userId = sessionClaims?.userId as string;
+
+  const orders = await getOrdersByUser({ userId, page: 1 });
+
+  const tickets = orders.data.map((order: Order) => order.Event || []);
 
   const organizedEvents = await getRelatedEventsByOrganizer({
     userId,
@@ -26,9 +34,9 @@ const ProfilePage = async () => {
           </Button>
         </div>
       </section>
-      {/* <section className='wrapper my-8'>
+      <section className='wrapper my-8'>
         <EventCollection
-          data={events?.data ?? []}
+          data={tickets ?? []}
           title='No event tickets purchased yet.'
           subtitle='Plenty of exciting events to explore.'
           type='MY_TICKETS'
@@ -37,7 +45,7 @@ const ProfilePage = async () => {
           totalPages={2}
           urlParamName='orders'
         />
-      </section> */}
+      </section>
       <section className='py-6 md:py-12'>
         <div className='wrapper flex items-center justify-center sm:justify-between'>
           <h3 className='h3-bold text-center sm:text-start'>
