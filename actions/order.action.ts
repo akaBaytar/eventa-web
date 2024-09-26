@@ -3,7 +3,9 @@
 import { redirect } from 'next/navigation';
 
 import Stripe from 'stripe';
-import { Checkout } from '@/types';
+
+import prisma from '@/database';
+import { Checkout, CreateOrder } from '@/types';
 
 export const checkoutOrder = async (order: Checkout) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
@@ -39,4 +41,8 @@ export const checkoutOrder = async (order: Checkout) => {
   } catch (error) {
     throw error;
   }
+};
+
+export const createOrder = async (order: CreateOrder) => {
+
 };

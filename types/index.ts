@@ -42,6 +42,17 @@ export type Event = {
   };
 };
 
+export type Collection = {
+  data: Event[];
+  title: string;
+  subtitle: string;
+  limit: number;
+  totalPages?: number;
+  page: number | string;
+  urlParamName?: string;
+  type?: 'EVENTS_ORGANIZED' | 'ALL_EVENTS' | 'MY_TICKETS';
+};
+
 export type Checkout = {
   eventId: string;
   eventTitle: string;
@@ -112,13 +123,10 @@ export type GetAllEvents = {
   page: number;
 };
 
-export type Collection = {
-  data: Event[];
-  title: string;
-  subtitle: string;
-  limit: number;
-  totalPages?: number;
-  page: number | string;
-  urlParamName?: string;
-  type?: 'EVENTS_ORGANIZED' | 'ALL_EVENTS' | 'MY_TICKETS';
+export type CreateOrder = {
+  stripeId: string;
+  eventId: string;
+  buyerId: string;
+  totalAmount: string;
+  createdAt: Date;
 };
