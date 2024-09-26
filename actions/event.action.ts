@@ -60,7 +60,7 @@ export const getRelatedEventsByOrganizer = async ({
   limit = 6,
 }: {
   userId: string;
-  eventId: string;
+  eventId?: string;
   page: number;
   limit?: number;
 }) => {

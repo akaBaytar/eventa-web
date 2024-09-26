@@ -36,9 +36,7 @@ const Card = ({ event, hasOrderLink, hidePrice }: PropTypes) => {
           <DeleteConfirmation eventId={event.id} />
         </div>
       )}
-      <Link
-        href={`/events/${event.id}`}
-        className='flex flex-col gap-4 p-4 min-h-[200px]'>
+      <div className='flex flex-col gap-4 p-4 min-h-[200px]'>
         {!hidePrice && (
           <div className='flex gap-2'>
             <span className='p-semibold-14 px-2 py-1 w-min bg-primary rounded-lg text-primary-50  min-w-fit line-clamp-1'>
@@ -52,7 +50,11 @@ const Card = ({ event, hasOrderLink, hidePrice }: PropTypes) => {
         <p className='p-medium-16 text-gray-500'>
           {formatDateTime(event.startDateTime).dateTime}
         </p>
-        <p className='p-medium-16 md:p-medium-20 line-clamp-1'>{event.title}</p>
+        <Link href={`/events/${event.id}`}>
+          <p className='p-medium-16 md:p-medium-20 line-clamp-1'>
+            {event.title}
+          </p>
+        </Link>
         <p className='line-clamp-2 text-xs'>{event.description}</p>
         <div className='flex-between w-full p-medium-14 md:p-medium-16 '>
           <p className='text-gray-500'>
@@ -64,7 +66,7 @@ const Card = ({ event, hasOrderLink, hidePrice }: PropTypes) => {
             </Link>
           )}
         </div>
-      </Link>
+      </div>
     </div>
   );
 };
