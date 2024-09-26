@@ -5,13 +5,15 @@ import { FaLocationDot, FaLink } from 'react-icons/fa6';
 import { FaCalendarAlt, FaRegClock } from 'react-icons/fa';
 
 import { formatDateTime } from '@/lib/utils';
+
+import EventCollection from '@/components/layout/Collection';
+import CheckoutButton from '@/components/shared/CheckoutButton';
+
 import {
   getEvent,
   getRelatedEventsByCategory,
   getRelatedEventsByOrganizer,
 } from '@/actions/event.action';
-
-import EventCollection from '@/components/layout/Collection';
 
 type PropTypes = {
   params: { id: string };
@@ -64,7 +66,7 @@ const EventDetailPage = async ({ params: { id } }: PropTypes) => {
                   </p>
                 </div>
               </div>
-              {/* checkout button later */}
+              <CheckoutButton event={event}/>
               <div className='flex flex-col gap-8'>
                 <div className='flex items-center gap-2 md:gap-4'>
                   <FaCalendarAlt className='w-8 h-8 text-primary' />
