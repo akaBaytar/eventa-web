@@ -96,3 +96,15 @@ export const getOrdersByUser = async ({
 
   return { data: orders, totalPages };
 };
+
+export const getOrdersByEvents = async ({ id }: { id: string }) => {
+  try {
+    if (!id) throw new Error('Event ID is required.');
+
+    const orders = await prisma.order.findMany({ where: { eventId: id } });
+
+    return orders;
+  } catch (error) {
+    handleError(error);
+  }
+};
