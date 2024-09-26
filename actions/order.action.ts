@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation';
 import Stripe from 'stripe';
 
 import prisma from '@/database';
+import { handleError } from '@/lib/utils';
 import { Checkout, CreateOrder } from '@/types';
 
 export const checkoutOrder = async (order: Checkout) => {
@@ -44,5 +45,17 @@ export const checkoutOrder = async (order: Checkout) => {
 };
 
 export const createOrder = async (order: CreateOrder) => {
+  try {
+    const newOrder = await prisma.order.create({
+      data: {
+        ...order,
+        buyerId: order.buyerId,
+        eventId: order.eventId,
+      },
+    });
 
+    return newOrder;
+  } catch (error) {
+    handleError(error);
+  }
 };
