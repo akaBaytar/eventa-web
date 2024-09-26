@@ -27,7 +27,7 @@ export type Event = {
   imageUrl: string;
   price: string | null;
   url: string | null;
-  category: Category  | null;
+  category: Category | null;
   isFree: boolean;
   startDateTime: Date;
   endDateTime: Date;
@@ -40,6 +40,16 @@ export type Event = {
     lastName: string;
     photo: string;
   };
+};
+
+export type Checkout = {
+  eventId: string;
+  eventTitle: string;
+  price: string;
+  isFree: boolean;
+  buyerId: string;
+  image: string;
+  description: string;
 };
 
 export type CreateUser = {
