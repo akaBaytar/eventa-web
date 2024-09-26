@@ -98,8 +98,6 @@ export type DeleteEvent = {
 };
 
 export type GetAllEvents = {
-  query: string;
-  category: string;
   limit: number;
   page: number;
 };

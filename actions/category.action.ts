@@ -24,3 +24,20 @@ export const getAllCategories = async () => {
     handleError(error);
   }
 };
+
+export const getCategory = async (name: string) => {
+  try {
+    const category = await prisma.category.findFirst({
+      where: {
+        name: {
+          mode: 'insensitive',
+          contains: name,
+        },
+      },
+    });
+
+    return category;
+  } catch (error) {
+    handleError(error);
+  }
+};

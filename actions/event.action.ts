@@ -53,6 +53,88 @@ export const getEvent = async (eventId: string) => {
   }
 };
 
+export const getRelatedEventsByOrganizer = async ({
+  userId,
+  eventId,
+  page,
+  limit = 6,
+}: {
+  userId: string;
+  eventId: string;
+  page: number;
+  limit?: number;
+}) => {
+  try {
+    const events = await prisma.event.findMany({
+      where: { organizer: { id: userId }, id: { not: eventId } },
+      take: limit,
+      skip: (page - 1) * limit,
+      include: {
+        category: { select: { id: true, name: true } },
+        organizer: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            username: true,
+            photo: true,
+          },
+        },
+      },
+    });
+
+    const eventsCount: number = await prisma.event.count({
+      where: { organizer: { id: userId } },
+    });
+    const totalPages = Math.ceil(eventsCount / limit);
+
+    return { data: events, totalPages };
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const getRelatedEventsByCategory = async ({
+  categoryId,
+  eventId,
+  page,
+  limit = 6,
+}: {
+  categoryId: string;
+  eventId: string;
+  page: number;
+  limit?: number;
+}) => {
+  try {
+    const events = await prisma.event.findMany({
+      where: { categoryId, id: { not: eventId } },
+      take: limit,
+      skip: (page - 1) * limit,
+      include: {
+        category: { select: { id: true, name: true } },
+        organizer: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            username: true,
+            photo: true,
+          },
+        },
+      },
+    });
+
+    const eventsCount: number = await prisma.event.count({
+      where: { categoryId },
+    });
+    const totalPages = Math.ceil(eventsCount / limit);
+
+    return { data: events, totalPages };
+  } catch (error) {
+    handleError(error);
+  }
+};
+
 export const deleteEvent = async ({ eventId, path }: DeleteEvent) => {
   try {
     const event = await prisma.event.delete({ where: { id: eventId } });
@@ -93,19 +175,14 @@ export const updateEvent = async ({ userId, event, path }: UpdateEvent) => {
   }
 };
 
-export const getAllEvents = async ({
-  query,
-  limit = 6,
-  page,
-  category,
-}: GetAllEvents) => {
+export const getAllEvents = async ({ limit = 6, page }: GetAllEvents) => {
   try {
     const events = await prisma.event.findMany({
       orderBy: {
         createdAt: 'desc',
       },
-      skip: 0,
       take: limit,
+      skip: (page - 1) * limit,
       include: {
         category: { select: { id: true, name: true } },
         organizer: {

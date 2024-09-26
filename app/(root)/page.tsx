@@ -5,12 +5,7 @@ import EventCollection from '@/components/layout/Collection';
 import { getAllEvents } from '@/actions/event.action';
 
 const HomePage = async () => {
-  const events = await getAllEvents({
-    query: '',
-    category: '',
-    page: 1,
-    limit: 6,
-  });
+  const events = await getAllEvents({ page: 1, limit: 6 });
 
   return (
     <>
