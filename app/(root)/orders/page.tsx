@@ -1,3 +1,14 @@
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
+
+import { formatDateTime } from '@/lib/utils';
 import { getOrdersByEvents } from '@/actions/order.action';
 
 type SearchParams = {
@@ -10,7 +21,43 @@ const OrderPage = async ({ searchParams }: SearchParams) => {
 
   const orders = await getOrdersByEvents({ id: eventId });
 
-  return <div>{orders?.length}</div>;
+  return (
+    <section className='wrapper'>
+      <Table>
+        {orders && orders.length > 0 ? (
+          <TableCaption>A list of your recent orders.</TableCaption>
+        ) : (
+          <TableCaption>
+            No tickets have been purchased for your event yet.
+          </TableCaption>
+        )}
+        <TableHeader>
+          <TableRow>
+            <TableHead className='min-w-32'>Order ID</TableHead>
+            <TableHead className='min-w-36'>Event Title</TableHead>
+            <TableHead className='min-w-32'>Buyer</TableHead>
+            <TableHead className='min-w-32'>Amount</TableHead>
+            <TableHead className='min-w-36'>Created</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {orders &&
+            orders.length > 0 &&
+            orders.map(({ id, Event, buyer, totalAmount, createdAt }) => (
+              <TableRow key={id} className='text-xs'>
+                <TableCell>{id}</TableCell>
+                <TableCell>{Event.title}</TableCell>
+                <TableCell>
+                  {buyer.firstName} {buyer.lastName}
+                </TableCell>
+                <TableCell>${totalAmount}</TableCell>
+                <TableCell>{formatDateTime(createdAt).dateTime}</TableCell>
+              </TableRow>
+            ))}
+        </TableBody>
+      </Table>
+    </section>
+  );
 };
 
 export default OrderPage;

@@ -101,7 +101,24 @@ export const getOrdersByEvents = async ({ id }: { id: string }) => {
   try {
     if (!id) throw new Error('Event ID is required.');
 
-    const orders = await prisma.order.findMany({ where: { eventId: id } });
+    const orders = await prisma.order.findMany({
+      where: {
+        eventId: id,
+      },
+      include: {
+        Event: {
+          select: {
+            title: true,
+          },
+        },
+        buyer: {
+          select: {
+            firstName: true,
+            lastName: true,
+          },
+        },
+      },
+    });
 
     return orders;
   } catch (error) {
