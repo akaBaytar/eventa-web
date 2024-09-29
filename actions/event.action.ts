@@ -92,6 +92,7 @@ export const getRelatedEventsByOrganizer = async ({
     const eventsCount: number = await prisma.event.count({
       where: { organizer: { id: userId } },
     });
+
     const totalPages = Math.ceil(eventsCount / limit);
 
     return { data: events, totalPages };
@@ -133,6 +134,7 @@ export const getRelatedEventsByCategory = async ({
     const eventsCount: number = await prisma.event.count({
       where: { categoryId },
     });
+
     const totalPages = Math.ceil(eventsCount / limit);
 
     return { data: events, totalPages };
@@ -218,6 +220,7 @@ export const getAllEvents = async ({
         },
       ],
     };
+
     if (category) {
       whereClause.category = {
         name: category,
@@ -245,7 +248,9 @@ export const getAllEvents = async ({
       },
     });
 
-    const eventsCount: number = await prisma.event.count({});
+    const eventsCount: number = await prisma.event.count({
+      where: whereClause,
+    });
     const totalPages = Math.ceil(eventsCount / limit);
 
     return { data: events, count: eventsCount, totalPages };

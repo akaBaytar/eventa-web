@@ -12,6 +12,9 @@ const HomePage = async ({ searchParams }: SearchParams) => {
 
   const events = await getAllEvents({ page, query, category, limit: 6 });
 
+  console.log(events);
+  
+
   return (
     <>
       <Hero />
@@ -23,8 +26,8 @@ const HomePage = async ({ searchParams }: SearchParams) => {
           subtitle='Come back later.'
           type='ALL_EVENTS'
           limit={6}
-          page={1}
-          totalPages={2}
+          page={page}
+          totalPages={events?.totalPages}
         />
       </section>
     </>

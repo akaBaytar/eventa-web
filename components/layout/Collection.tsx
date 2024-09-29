@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import Card from '../shared/Card';
+import Pagination from './Pagination';
 
 import { Collection } from '@/types';
 
@@ -8,8 +8,7 @@ const EventCollection = ({
   title,
   subtitle,
   type,
-  limit,
-  totalPages = 0,
+  totalPages,
   page,
   urlParamName,
 }: Collection) => {
@@ -33,6 +32,13 @@ const EventCollection = ({
               );
             })}
           </ul>
+          {totalPages && totalPages > 1 && (
+            <Pagination
+              urlParamName={urlParamName}
+              page={page}
+              totalPages={totalPages}
+            />
+          )}
         </div>
       ) : (
         <div className='flex-center flex-col gap-4 py-28 wrapper min-h-[200px] w-full text-center bg-gray-50 rounded-lg'>
