@@ -1,6 +1,7 @@
 import { Poppins } from 'next/font/google';
 
 import { ClerkProvider } from '@clerk/nextjs';
+import { Toaster } from '@/components/ui/toaster';
 
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
@@ -24,7 +25,10 @@ const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <ClerkProvider>
       <html lang='en' suppressHydrationWarning>
-        <body className={poppins.variable}>{children}</body>
+        <body className={poppins.variable}>
+          {children}
+          <Toaster />
+        </body>
       </html>
     </ClerkProvider>
   );

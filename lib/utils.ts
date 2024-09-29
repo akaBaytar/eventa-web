@@ -9,7 +9,7 @@ export const cn = (...inputs: ClassValue[]) => {
 };
 
 export const handleError = (error: unknown) => {
-  console.log(error);
+  console.error(error);
 
   throw new Error(typeof error === 'string' ? error : JSON.stringify(error));
 };

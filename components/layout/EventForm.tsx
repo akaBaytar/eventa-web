@@ -104,8 +104,6 @@ const EventForm = ({ userId, type, event, eventId }: PropTypes) => {
     if (type === 'Update') {
       if (!eventId) return router.back();
 
-      console.log('EVENT ID', eventId);
-
       try {
         const updatedEvent = await updateEvent({
           userId,

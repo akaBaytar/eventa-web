@@ -3,23 +3,29 @@ import { loadStripe } from '@stripe/stripe-js';
 
 import { Event } from '@/types';
 import { Button } from '../ui/button';
+import { useToast } from '../ui/use-toast';
 import { checkoutOrder } from '@/actions/order.action';
 
 loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 const Checkout = ({ event, userId }: { event: Event; userId: string }) => {
+  const { toast } = useToast();
+
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     if (query.get('success')) {
-      console.log('Order placed! You will receive an email confirmation.');
+      toast({
+        description: 'Order placed! You will receive an email confirmation.',
+      });
     }
 
     if (query.get('canceled')) {
-      console.log(
-        'Order canceled -- continue to shop around and checkout when you’re ready.'
-      );
+      toast({
+        description:
+          'Order canceled -- continue to shop around and checkout when you’re ready.',
+      });
     }
-  }, []);
+  }, [toast]);
 
   const onCheckout = async () => {
     const order = {
