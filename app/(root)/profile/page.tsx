@@ -22,12 +22,13 @@ const ProfilePage = async ({ searchParams }: SearchParams) => {
   const ticketsPage = Number(searchParams.orders) || 1;
   const eventsPage = Number(searchParams.events) || 1;
 
-  const orders = await getOrdersByUser({ userId, page: ticketsPage });
+  const orders = await getOrdersByUser({ userId, page: ticketsPage, limit: 3 });
   const tickets = orders.data.map((order: Order) => order.Event || []);
 
   const organizedEvents = await getRelatedEventsByOrganizer({
     userId,
     page: eventsPage,
+    limit: 3,
   });
 
   return (
@@ -46,7 +47,7 @@ const ProfilePage = async ({ searchParams }: SearchParams) => {
           title='No event tickets purchased yet.'
           subtitle='Plenty of exciting events to explore.'
           type='MY_TICKETS'
-          limit={6}
+          limit={3}
           page={ticketsPage}
           totalPages={orders.totalPages}
           urlParamName='orders'
@@ -68,7 +69,7 @@ const ProfilePage = async ({ searchParams }: SearchParams) => {
           title='No events have been created yet.'
           subtitle='Let&pos;s create some events.'
           type='EVENTS_ORGANIZED'
-          limit={6}
+          limit={3}
           page={eventsPage}
           totalPages={organizedEvents?.totalPages}
           urlParamName='events'

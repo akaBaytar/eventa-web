@@ -28,7 +28,7 @@ const Pagination = ({ urlParamName, page, totalPages }: PropTypes) => {
   };
 
   return (
-    <div className='flex gap-4'>
+    <div className='flex gap-4 justify-between w-full sm:justify-center'>
       <Button
         variant='outline'
         size='lg'

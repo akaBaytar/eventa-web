@@ -66,7 +66,7 @@ const EventDetailPage = async ({ params: { id } }: PropTypes) => {
                   </p>
                 </div>
               </div>
-              <CheckoutButton event={event}/>
+              <CheckoutButton event={event} />
               <div className='flex flex-col gap-8'>
                 <div className='flex items-center gap-2 md:gap-4'>
                   <FaCalendarAlt className='w-8 h-8 text-primary' />
@@ -109,9 +109,9 @@ const EventDetailPage = async ({ params: { id } }: PropTypes) => {
             title='No events found.'
             subtitle='Come back later.'
             type='ALL_EVENTS'
-            limit={6}
+            limit={3}
             page={1}
-            totalPages={2}
+            totalPages={relatedEventsByCategory?.totalPages}
           />
         </section>
         <section className='wrapper flex flex-col gap-8 md:gap-12 my-8'>
@@ -121,9 +121,9 @@ const EventDetailPage = async ({ params: { id } }: PropTypes) => {
             title='No events found.'
             subtitle='Come back later.'
             type='ALL_EVENTS'
-            limit={6}
+            limit={3}
             page={1}
-            totalPages={2}
+            totalPages={relatedEventsByCategory?.totalPages}
           />
         </section>
       </>

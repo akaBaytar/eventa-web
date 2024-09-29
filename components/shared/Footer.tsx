@@ -8,10 +8,10 @@ import { FaXTwitter, FaLinkedinIn, FaGithub } from 'react-icons/fa6';
 const Footer = () => {
   return (
     <footer className='border-t bg-primary-50'>
-      <div className='wrapper flex flex-col sm:flex-row flex-center flex-between p-4 sm:mt-8 gap-6 text-center'>
+      <div className='wrapper flex flex-col sm:flex-row flex-center flex-between p-4 sm:mt-8 gap-8 text-center'>
         <Link
           href='/'
-          className='w-32 flex items-center justify-center sm:justify-start gap-1 text-xl text-primary font-semibold select-none'>
+          className='w-32 flex items-center justify-center sm:justify-start gap-1 text-xl text-primary font-semibold select-none mt-8 sm:mt-0'>
           <Image
             src={LOGO}
             width={28}
