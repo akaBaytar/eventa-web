@@ -160,3 +160,13 @@ export type SearchParams = {
   params: { id: string };
   searchParams: { [key: string]: string | string[] | undefined };
 };
+
+export type WhereClause = {
+  OR: Array<{
+    title?: { contains: string; mode: 'insensitive' };
+    description?: { contains: string; mode: 'insensitive' };
+    location?: { contains: string; mode: 'insensitive' };
+    organizer?: { username?: { contains: string; mode: 'insensitive' } };
+  }>;
+  category?: { name: string };
+};

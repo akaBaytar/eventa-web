@@ -5,7 +5,13 @@ import { revalidatePath } from 'next/cache';
 import prisma from '@/database';
 import { handleError } from '@/lib/utils';
 
-import { CreateEvent, DeleteEvent, GetAllEvents, UpdateEvent } from '@/types';
+import {
+  CreateEvent,
+  DeleteEvent,
+  GetAllEvents,
+  UpdateEvent,
+  WhereClause,
+} from '@/types';
 
 export const createEvent = async ({ event, userId }: CreateEvent) => {
   try {
@@ -182,37 +188,44 @@ export const getAllEvents = async ({
   category,
 }: GetAllEvents) => {
   try {
+    const whereClause: WhereClause = {
+      OR: [
+        {
+          title: {
+            contains: query,
+            mode: 'insensitive',
+          },
+        },
+        {
+          description: {
+            contains: query,
+            mode: 'insensitive',
+          },
+        },
+        {
+          location: {
+            contains: query,
+            mode: 'insensitive',
+          },
+        },
+        {
+          organizer: {
+            username: {
+              contains: query,
+              mode: 'insensitive',
+            },
+          },
+        },
+      ],
+    };
+    if (category) {
+      whereClause.category = {
+        name: category,
+      };
+    }
+
     const events = await prisma.event.findMany({
-      where: {
-        OR: [
-          {
-            title: {
-              contains: query,
-              mode: 'insensitive',
-            },
-          },
-          {
-            description: {
-              contains: query,
-              mode: 'insensitive',
-            },
-          },
-          {
-            location: {
-              contains: query,
-              mode: 'insensitive',
-            },
-          },
-          {
-            organizer: {
-              username: {
-                contains: query,
-                mode: 'insensitive',
-              },
-            },
-          },
-        ],
-      },
+      where: whereClause,
       orderBy: {
         createdAt: 'desc',
       },

@@ -1,3 +1,4 @@
+import Filter from '../shared/Filter';
 import Search from '../shared/Search';
 
 const SearchContainer = () => {
@@ -9,7 +10,7 @@ const SearchContainer = () => {
       </h2>
       <div className='flex flex-col md:flex-row gap-6 w-full'>
         <Search />
-        <div>filter form</div>
+        <Filter />
       </div>
     </section>
   );
