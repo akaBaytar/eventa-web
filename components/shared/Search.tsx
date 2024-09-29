@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import { FaSearch } from 'react-icons/fa';
+import { IoIosSearch } from 'react-icons/io';
 
 import { Input } from '../ui/input';
 import { formUrlQuery, removeKeysFromQuery } from '@/lib/utils';
@@ -38,13 +38,13 @@ const Search = () => {
   }, [query, router, searchParams]);
 
   return (
-    <div className='flex-center min-h-14 w-full px-4 py-2 overflow-hidden rounded-lg bg-gray-50'>
-      <FaSearch className='w-5 h-5 text-gray-500' />
+    <div className='flex-center min-h-14 w-full px-4 py-2 overflow-hidden rounded-lg bg-grey-50'>
+      <IoIosSearch className='w-5 h-5' />
       <Input
         type='text'
         placeholder='Search'
         onChange={(e) => setQuery(e.target.value)}
-        className='border-0 p-regular-16 bg-gray-50 outline-offset-0 placeholder:text-gray-500 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none'
+        className='border-0 p-regular-16 bg-grey-50 outline-offset-0 placeholder:text-gray-500 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none'
       />
     </div>
   );
