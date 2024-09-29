@@ -3,9 +3,14 @@ import SearchContainer from '@/components/container/Search';
 import EventCollection from '@/components/layout/Collection';
 
 import { getAllEvents } from '@/actions/event.action';
+import { SearchParams } from '@/types';
 
-const HomePage = async () => {
-  const events = await getAllEvents({ page: 1, limit: 6 });
+const HomePage = async ({ searchParams }: SearchParams) => {
+  const page = Number(searchParams.page) || 1;
+  const query = (searchParams.query as string) || '';
+  const category = (searchParams.category as string) || '';
+
+  const events = await getAllEvents({ page, query, category, limit: 6 });
 
   return (
     <>

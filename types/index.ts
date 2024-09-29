@@ -133,6 +133,8 @@ export type DeleteEvent = {
 export type GetAllEvents = {
   limit: number;
   page: number;
+  query: string;
+  category: string;
 };
 
 export type CreateOrder = {
@@ -141,4 +143,20 @@ export type CreateOrder = {
   buyerId: string;
   totalAmount: string;
   createdAt: Date;
+};
+
+export type UrlQuery = {
+  params: string;
+  key: string;
+  value: string | null;
+};
+
+export type RemoveUrlQuery = {
+  params: string;
+  keysToRemove: string[];
+};
+
+export type SearchParams = {
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 };

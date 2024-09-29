@@ -175,9 +175,44 @@ export const updateEvent = async ({ userId, event, path }: UpdateEvent) => {
   }
 };
 
-export const getAllEvents = async ({ limit = 6, page }: GetAllEvents) => {
+export const getAllEvents = async ({
+  limit = 6,
+  page,
+  query,
+  category,
+}: GetAllEvents) => {
   try {
     const events = await prisma.event.findMany({
+      where: {
+        OR: [
+          {
+            title: {
+              contains: query,
+              mode: 'insensitive',
+            },
+          },
+          {
+            description: {
+              contains: query,
+              mode: 'insensitive',
+            },
+          },
+          {
+            location: {
+              contains: query,
+              mode: 'insensitive',
+            },
+          },
+          {
+            organizer: {
+              username: {
+                contains: query,
+                mode: 'insensitive',
+              },
+            },
+          },
+        ],
+      },
       orderBy: {
         createdAt: 'desc',
       },

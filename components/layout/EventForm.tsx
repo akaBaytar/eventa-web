@@ -142,7 +142,7 @@ const EventForm = ({ userId, type, event, eventId }: PropTypes) => {
                   <Input
                     placeholder='Event Title'
                     {...field}
-                    className='input-field'
+                    className='input-field shadow-none'
                   />
                 </FormControl>
                 <FormMessage />
@@ -175,7 +175,7 @@ const EventForm = ({ userId, type, event, eventId }: PropTypes) => {
                   <Textarea
                     placeholder='Description'
                     {...field}
-                    className='textarea'
+                    className='textarea shadow-none'
                   />
                 </FormControl>
                 <FormMessage />
@@ -211,7 +211,7 @@ const EventForm = ({ userId, type, event, eventId }: PropTypes) => {
                     <Input
                       placeholder='Event Location'
                       {...field}
-                      className='input-field'
+                      className='input-field shadow-none'
                     />
                   </div>
                 </FormControl>
@@ -284,7 +284,7 @@ const EventForm = ({ userId, type, event, eventId }: PropTypes) => {
                       placeholder='Price'
                       min={0}
                       {...field}
-                      className='p-regular-16 border-0 outline-offset-0 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0 bg-grey-50 ms-2'
+                      className='p-regular-16 border-0 outline-offset-0 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0 bg-grey-50 ms-2 shadow-none'
                     />
                     <FormField
                       control={form.control}
@@ -327,7 +327,7 @@ const EventForm = ({ userId, type, event, eventId }: PropTypes) => {
                     <Input
                       placeholder='URL'
                       {...field}
-                      className='input-field'
+                      className='input-field shadow-none'
                     />
                   </div>
                 </FormControl>
